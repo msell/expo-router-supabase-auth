@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react"
-import { Slot, SplashScreen } from "expo-router"
-import { KeyboardProvider } from "react-native-keyboard-controller"
-
-import { useFonts } from "@expo-google-fonts/space-grotesk"
-import { customFontsToLoad } from "@/theme"
 import { initI18n } from "@/i18n"
+import { SessionProvider, useSession } from "@/services/supabase/AuthContext"
+import { $styles, customFontsToLoad } from "@/theme"
 import { loadDateFnsLocale } from "@/utils/formatDate"
 import { useThemeProvider } from "@/utils/useAppTheme"
+import { useFonts } from "@expo-google-fonts/space-grotesk"
+import { Redirect, Slot, SplashScreen } from "expo-router"
+import { useEffect, useState } from "react"
+import { KeyboardProvider } from "react-native-keyboard-controller"
+
+import "react-native-url-polyfill/auto"
 
 SplashScreen.preventAutoHideAsync()
 
@@ -47,10 +49,12 @@ export default function Root() {
   }
 
   return (
-    <ThemeProvider value={{ themeScheme, setThemeContextOverride }}>
-      <KeyboardProvider>
-        <Slot />
-      </KeyboardProvider>
-    </ThemeProvider>
+    <SessionProvider>
+      <ThemeProvider value={{ themeScheme, setThemeContextOverride }}>
+        <KeyboardProvider>
+          <Slot />
+        </KeyboardProvider>
+      </ThemeProvider>
+    </SessionProvider>
   )
 }

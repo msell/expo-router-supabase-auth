@@ -30,9 +30,11 @@
   "dependencies": {
     "@expo-google-fonts/space-grotesk": "^0.2.2",
     "@expo/metro-runtime": "~4.0.0",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.0.2",
     "@shopify/flash-list": "1.7.3",
+    "@supabase/supabase-js": "^2.49.1",
     "apisauce": "3.0.1",
     "date-fns": "^4.1.0",
     "expo": "~52.0.7",
@@ -41,6 +43,7 @@
     "expo-linking": "~7.0.2",
     "expo-localization": "~16.0.1",
     "expo-router": "~4.0.17",
+    "expo-secure-store": "~14.0.1",
     "expo-splash-screen": "~0.29.10",
     "expo-status-bar": "~2.0.0",
     "expo-system-ui": "~4.0.3",
@@ -57,6 +60,7 @@
     "react-native-reanimated": "~3.16.1",
     "react-native-safe-area-context": "4.12.0",
     "react-native-screens": "~4.4.0",
+    "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "~0.19.6"
   },
   "devDependencies": {

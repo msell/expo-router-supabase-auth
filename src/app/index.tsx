@@ -1,15 +1,16 @@
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
 import { Screen, Text } from "@/components"
 import { isRTL } from "@/i18n"
 import { ThemedStyle } from "@/theme"
-import { useSafeAreaInsetsStyle } from "@/utils/useSafeAreaInsetsStyle"
 import { useAppTheme } from "@/utils/useAppTheme"
+// import { Link } from "@/utils/useSafeAreaInsetsStyle"
+import { Link } from "expo-router"
+import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
 
 export default function WelcomeScreen() {
-  const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
+  // const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
   const { theme, themed } = useAppTheme()
 
   return (
@@ -29,10 +30,9 @@ export default function WelcomeScreen() {
           resizeMode="contain"
           tintColor={theme.isDark ? theme.colors.palette.neutral900 : undefined}
         />
-      </View>
-
-      <View style={[themed($bottomContainer), $bottomContainerInsets]}>
-        <Text tx="welcomeScreen:postscript" size="md" />
+        <Link href="/sign-in">
+          <Text preset="subheading">Sign In</Text>
+        </Link>
       </View>
     </Screen>
   )
