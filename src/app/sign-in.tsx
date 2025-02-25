@@ -1,9 +1,10 @@
 import { Button, Screen, Text, TextField } from "@/components"
+import { supabase } from "@/services/supabase"
 import { colors, spacing } from "@/theme"
 import { useSafeAreaInsetsStyle } from "@/utils/useSafeAreaInsetsStyle"
 import { useState } from "react"
 import { Alert, Image, ImageStyle, Pressable, TextStyle, View, ViewStyle } from "react-native"
-import { supabase } from "@/services/supabase"
+
 const logo = require("../../assets/images/logo.png")
 
 export default function SignInScreen() {

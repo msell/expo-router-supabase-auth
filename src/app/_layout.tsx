@@ -1,10 +1,11 @@
+import { Text } from "@/components"
 import { initI18n } from "@/i18n"
-import { SessionProvider, useSession } from "@/services/supabase/AuthContext"
-import { $styles, customFontsToLoad } from "@/theme"
+import { SessionProvider } from "@/services/supabase/AuthContext"
+import { customFontsToLoad } from "@/theme"
 import { loadDateFnsLocale } from "@/utils/formatDate"
 import { useThemeProvider } from "@/utils/useAppTheme"
 import { useFonts } from "@expo-google-fonts/space-grotesk"
-import { Redirect, Slot, SplashScreen } from "expo-router"
+import { SplashScreen, Stack } from "expo-router"
 import { useEffect, useState } from "react"
 import { KeyboardProvider } from "react-native-keyboard-controller"
 
@@ -21,10 +22,9 @@ if (__DEV__) {
 
 export { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary"
 
-export default function Root() {
+export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts(customFontsToLoad)
   const [isI18nInitialized, setIsI18nInitialized] = useState(false)
-  const { themeScheme, setThemeContextOverride, ThemeProvider } = useThemeProvider()
 
   useEffect(() => {
     initI18n()
@@ -48,11 +48,20 @@ export default function Root() {
     return null
   }
 
+  return <RootLayoutNav />
+}
+
+function RootLayoutNav() {
+  const { themeScheme, setThemeContextOverride, ThemeProvider } = useThemeProvider()
   return (
     <SessionProvider>
       <ThemeProvider value={{ themeScheme, setThemeContextOverride }}>
         <KeyboardProvider>
-          <Slot />
+          <Stack>
+            <Stack.Screen name="welcome" options={{ headerShown: false }} />
+            <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+            <Stack.Screen name="(app)" options={{ headerShown: false }} />
+          </Stack>
         </KeyboardProvider>
       </ThemeProvider>
     </SessionProvider>

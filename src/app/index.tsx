@@ -1,18 +1,16 @@
-import { Screen, Text } from "@/components"
+import { Button, Screen, Text } from "@/components"
 import { isRTL } from "@/i18n"
 import { ThemedStyle } from "@/theme"
 import { useAppTheme } from "@/utils/useAppTheme"
-// import { Link } from "@/utils/useSafeAreaInsetsStyle"
-import { Link } from "expo-router"
+import { useRouter } from "expo-router"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
 
 export default function WelcomeScreen() {
-  // const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
   const { theme, themed } = useAppTheme()
-
+  const router = useRouter()
   return (
     <Screen safeAreaEdges={["top"]} contentContainerStyle={themed($container)}>
       <View style={themed($topContainer)}>
@@ -30,9 +28,7 @@ export default function WelcomeScreen() {
           resizeMode="contain"
           tintColor={theme.isDark ? theme.colors.palette.neutral900 : undefined}
         />
-        <Link href="/sign-in">
-          <Text preset="subheading">Sign In</Text>
-        </Link>
+        <Button onPress={() => router.push("/sign-in")}>Sign in</Button>
       </View>
     </Screen>
   )
@@ -49,17 +45,6 @@ const $topContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   flexBasis: "57%",
   justifyContent: "center",
   paddingHorizontal: spacing.lg,
-})
-
-const $bottomContainer: ThemedStyle<ViewStyle> = ({ colors, spacing }) => ({
-  flexShrink: 1,
-  flexGrow: 0,
-  flexBasis: "43%",
-  backgroundColor: colors.palette.neutral100,
-  borderTopLeftRadius: 16,
-  borderTopRightRadius: 16,
-  paddingHorizontal: spacing.lg,
-  justifyContent: "space-around",
 })
 
 const $welcomeLogo: ThemedStyle<ImageStyle> = ({ spacing }) => ({
