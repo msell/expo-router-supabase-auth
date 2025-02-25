@@ -1,4 +1,3 @@
-import { Text } from "@/components"
 import { initI18n } from "@/i18n"
 import { SessionProvider } from "@/services/supabase/AuthContext"
 import { customFontsToLoad } from "@/theme"
