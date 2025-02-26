@@ -4,7 +4,7 @@ import { customFontsToLoad } from "@/theme"
 import { loadDateFnsLocale } from "@/utils/formatDate"
 import { useThemeProvider } from "@/utils/useAppTheme"
 import { useFonts } from "@expo-google-fonts/space-grotesk"
-import { SplashScreen, Stack } from "expo-router"
+import { Slot, SplashScreen, Stack } from "expo-router"
 import { useEffect, useState } from "react"
 import { KeyboardProvider } from "react-native-keyboard-controller"
 
@@ -56,11 +56,7 @@ function RootLayoutNav() {
     <SessionProvider>
       <ThemeProvider value={{ themeScheme, setThemeContextOverride }}>
         <KeyboardProvider>
-          <Stack>
-            <Stack.Screen name="welcome" options={{ headerShown: false }} />
-            <Stack.Screen name="sign-in" options={{ headerShown: false }} />
-            <Stack.Screen name="(app)" options={{ headerShown: false }} />
-          </Stack>
+          <Slot />
         </KeyboardProvider>
       </ThemeProvider>
     </SessionProvider>
