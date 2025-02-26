@@ -1,6 +1,7 @@
 import { Button, Screen, Text, TextField } from "@/components"
 import { supabase } from "@/services/supabase"
 import { colors, spacing } from "@/theme"
+import { useAppTheme } from "@/utils/useAppTheme"
 import { useSafeAreaInsetsStyle } from "@/utils/useSafeAreaInsetsStyle"
 import { useState } from "react"
 import { Alert, Image, ImageStyle, Pressable, TextStyle, View, ViewStyle } from "react-native"
@@ -12,7 +13,7 @@ export default function SignInScreen() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [_loading, setLoading] = useState(false)
-
+  const { themed } = useAppTheme()
   async function onSignIn() {
     setLoading(true)
     const { error } = await supabase.auth.signInWithPassword({
@@ -53,7 +54,7 @@ export default function SignInScreen() {
   }
 
   return (
-    <Screen contentContainerStyle={$root} preset="auto" safeAreaEdges={["top"]}>
+    <Screen safeAreaEdges={["top"]} contentContainerStyle={themed($container)}>
       <View style={$container}>
         <View style={$topContainer}>
           <Image style={$logo} source={logo} resizeMode="contain" />
@@ -91,11 +92,6 @@ export default function SignInScreen() {
       </View>
     </Screen>
   )
-}
-
-const $root: ViewStyle = {
-  minHeight: "100%",
-  backgroundColor: colors.palette.neutral100,
 }
 
 const $container: ViewStyle = {

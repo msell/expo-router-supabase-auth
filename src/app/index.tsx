@@ -28,7 +28,7 @@ export default function WelcomeScreen() {
           resizeMode="contain"
           tintColor={theme.isDark ? theme.colors.palette.neutral900 : undefined}
         />
-        <Button onPress={() => router.push("/debug")}>Sign in</Button>
+        <Button onPress={() => router.push("/sign-in")}>Sign in</Button>
       </View>
     </Screen>
   )
