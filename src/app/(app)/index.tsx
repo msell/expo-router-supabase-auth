@@ -1,14 +1,5 @@
-import { Screen, Text } from "@/components"
-import { ViewStyle } from "react-native"
+import { Redirect } from "expo-router"
 
-export default function HomeScreen() {
-  return (
-    <Screen style={$root} preset="scroll">
-      <Text text="home" />
-    </Screen>
-  )
-}
-
-const $root: ViewStyle = {
-  flex: 1,
+export default function Index() {
+  return <Redirect href="/home" />
 }

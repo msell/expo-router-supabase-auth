@@ -1,11 +1,13 @@
 import { Button, Screen, Text, TextField } from "@/components"
 import { supabase } from "@/services/supabase"
+import { useSession } from "@/services/supabase/AuthContext"
 import { colors, spacing } from "@/theme"
 import { useAppTheme } from "@/utils/useAppTheme"
 import { useSafeAreaInsetsStyle } from "@/utils/useSafeAreaInsetsStyle"
+import { Redirect, useRouter } from "expo-router"
 import { useState } from "react"
 import { Alert, Image, ImageStyle, Pressable, TextStyle, View, ViewStyle } from "react-native"
-
+import PreventAuthenticatedViewer from "@/components/PreventAuthenticatedViewer"
 const logo = require("../../assets/images/logo.png")
 
 export default function SignInScreen() {
@@ -14,9 +16,11 @@ export default function SignInScreen() {
   const [password, setPassword] = useState("")
   const [_loading, setLoading] = useState(false)
   const { themed } = useAppTheme()
+  const router = useRouter()
+
   async function onSignIn() {
     setLoading(true)
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error, data } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     })
@@ -27,6 +31,9 @@ export default function SignInScreen() {
       }
     }
     setLoading(false)
+    if (data) {
+      router.push("/(app)")
+    }
   }
 
   async function onSignUp() {
@@ -54,43 +61,45 @@ export default function SignInScreen() {
   }
 
   return (
-    <Screen safeAreaEdges={["top"]} contentContainerStyle={themed($container)}>
-      <View style={$container}>
-        <View style={$topContainer}>
-          <Image style={$logo} source={logo} resizeMode="contain" />
-        </View>
-        <View style={[$bottomContainer, $bottomContainerInsets]}>
-          <View>
-            <TextField
-              containerStyle={$textField}
-              label="Email"
-              autoCapitalize="none"
-              defaultValue={email}
-              onChangeText={setEmail}
-            />
-            <TextField
-              containerStyle={$textField}
-              label="Password"
-              autoCapitalize="none"
-              defaultValue={password}
-              secureTextEntry
-              onChangeText={setPassword}
-            />
+    <PreventAuthenticatedViewer>
+      <Screen safeAreaEdges={["top"]} contentContainerStyle={themed($container)}>
+        <View style={$container}>
+          <View style={$topContainer}>
+            <Image style={$logo} source={logo} resizeMode="contain" />
           </View>
-          <View>
-            <Button onPress={onSignIn}>Sign In</Button>
-            <Pressable style={$forgotPassword} onPress={onForgotPassword}>
-              <Text preset="bold">Forgot Password?</Text>
-            </Pressable>
-            <Text style={$buttonDivider}>- or -</Text>
-            <Button preset="reversed" onPress={onSignUp}>
-              Sign Up
-            </Button>
+          <View style={[$bottomContainer, $bottomContainerInsets]}>
+            <View>
+              <TextField
+                containerStyle={$textField}
+                label="Email"
+                autoCapitalize="none"
+                defaultValue={email}
+                onChangeText={setEmail}
+              />
+              <TextField
+                containerStyle={$textField}
+                label="Password"
+                autoCapitalize="none"
+                defaultValue={password}
+                secureTextEntry
+                onChangeText={setPassword}
+              />
+            </View>
+            <View>
+              <Button onPress={onSignIn}>Sign In</Button>
+              <Pressable style={$forgotPassword} onPress={onForgotPassword}>
+                <Text preset="bold">Forgot Password?</Text>
+              </Pressable>
+              <Text style={$buttonDivider}>- or -</Text>
+              <Button preset="reversed" onPress={onSignUp}>
+                Sign Up
+              </Button>
+            </View>
+            <View style={$cap} />
           </View>
-          <View style={$cap} />
         </View>
-      </View>
-    </Screen>
+      </Screen>
+    </PreventAuthenticatedViewer>
   )
 }
 

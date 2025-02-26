@@ -2,8 +2,9 @@ import { Button, Screen, Text } from "@/components"
 import { isRTL } from "@/i18n"
 import { ThemedStyle } from "@/theme"
 import { useAppTheme } from "@/utils/useAppTheme"
-import { useRouter } from "expo-router"
+import { Redirect, useRouter } from "expo-router"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
+import config from "@/config"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
@@ -11,6 +12,9 @@ const welcomeFace = require("../../assets/images/welcome-face.png")
 export default function WelcomeScreen() {
   const { theme, themed } = useAppTheme()
   const router = useRouter()
+  if (!config.enableWelcomeScreen) {
+    return <Redirect href="/sign-in" />
+  }
   return (
     <Screen safeAreaEdges={["top"]} contentContainerStyle={themed($container)}>
       <View style={themed($topContainer)}>

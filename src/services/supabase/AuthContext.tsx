@@ -1,4 +1,4 @@
-import { useStorageState } from "@/utils/storage/useStorageState"
+import { setStorageItemAsync, useStorageState } from "@/utils/storage/useStorageState"
 import { Session } from "@supabase/supabase-js"
 import { createContext, PropsWithChildren, useContext, useEffect } from "react"
 import { Alert } from "react-native"
@@ -71,6 +71,9 @@ export function SessionProvider({ children }: PropsWithChildren) {
           setSession(JSON.stringify(data.session))
         },
         signOut: async () => {
+          if (__DEV__) {
+            console.tron.log("signOut")
+          }
           await supabase.auth.signOut()
           setSession(null)
         },
